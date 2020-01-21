@@ -32,20 +32,21 @@
                     <form method="post">
                         <fieldset {% if not request.user.is_authenticated %} disabled="disabled" {% endif %}>
                             {% csrf_token %}
+                            <input type="hidden" name="request" value="product">
                             <div class="form-group">
                                 <label for="exampleFormControlInput1">Name</label>
                                 <input type="text" class="form-control" id="exampleFormControlInput1" name="name"
                                     value="{{ product.name }}">
                             </div>
                             <div class="form-group">
-                                <label for="exampleFormControlInput1">Count</label>
-                                <input type="number" class="form-control" id="exampleFormControlInput1" name="count"
-                                    value="{{ product.count }}" disabled="disabled">
-                            </div>
-                            <div class="form-group">
                                 <label for="exampleFormControlInput1">product info</label>
                                 <input type="text" class="form-control" id="exampleFormControlInput1"
                                     name="product_info" value="{{ product.product_info }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">Count</label>
+                                <input type="number" class="form-control" id="exampleFormControlInput1" name="count"
+                                    value="{{ count }}" disabled="disabled">
                             </div>
                             <!-- <div class="form-group">
                                 <label for="exampleFormControlSelect1">Provider</label>
@@ -67,6 +68,80 @@
                     {% endif %}
                 </div>
             </div>
+
+
+
+
+
+            <!-- Blog Post -->
+            <div class="card mb-4">
+                <h2 class="card-title">Transactions</h2>
+
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">provider name</th>
+                                <th scope="col">count</th>
+                                <th scope="col">price</th>
+                                <th scope="col">date</th>
+                            </tr>
+                        </thead>
+                        {% for provider in transactions %}
+                        <tr onclick="window.location='/provider/{{provider.id}}';">
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td>{{ provider.person.name }}</td>
+                            <td>{{ provider.count }}</td>
+                            <td>{{ provider.price }}</td>
+                            <td>{{ provider.date }}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+                <div class="card-footer text-muted light-color">
+
+                    <form method="post">
+                        <fieldset {% if not request.user.is_authenticated %} disabled="disabled" {% endif %}>
+                            {% csrf_token %}
+                            <input type="hidden" name="request" value="transaction">
+                            <input type="hidden" name="product" value="{{ product.id }}">
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect1">Person</label>
+                                <select class="form-control" id="exampleFormControlSelect1" name="person">
+                                    {% for provider in providers %}
+                                    <option value="{{ provider.id }}" {% if provider.id == product.provider.id %}
+                                        selected="selected" {% endif %}>{{ provider.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">Date</label>
+                                <input type="date" class="form-control" id="exampleFormControlInput1" name="date">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">Count</label>
+                                <input type="number" class="form-control" id="exampleFormControlInput1" name="count">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">Price</label>
+                                <input type="number" class="form-control" id="exampleFormControlInput1" name="price">
+                            </div>
+
+                            <button class="btn btn-info btn-block my-4" type="submit">Add New Transaction</button>
+                        </fieldset>
+                    </form>
+
+
+                </div>
+            </div>
+
+
+
+
+
+
 
         </div>
 

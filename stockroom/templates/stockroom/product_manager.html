@@ -31,18 +31,16 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">name</th>
-                                <th scope="col">provider</th>
-                                <th scope="col">count</th>
                                 <th scope="col">info</th>
+                                <!-- <th scope="col">count</th> -->
                             </tr>
                         </thead>
                         {% for product in products %}
                         <tr onclick="window.location='/product/{{product.id}}';">
                             <th scope="row">{{ forloop.counter }}</th>
                             <td>{{ product.name }}</td>
-                            <td><a href="/provider/{{ product.provider.id }}">{{ product.provider.name }}</a></td>
-                            <td>{{ product.count }}</td>
                             <td>{{ product.product_info }}</td>
+                            <!-- <td>{{ product.count }}</td> -->
                         </tr>
                         {% endfor %}
                     </table>

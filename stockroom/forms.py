@@ -12,3 +12,9 @@ class PersonForm(ModelForm):
     class Meta:
         model = models.Person
         fields = ['name', 'phone', 'address']
+
+
+class TransactionForm(ModelForm):
+    class Meta:
+        model = models.Transaction
+        fields = ['person', 'product', 'count', 'date', 'price']

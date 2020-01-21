@@ -14,7 +14,7 @@ class Product(models.Model):
     product_info = models.CharField(max_length=100)
 
     def __str__(self):
-        return f'name: {self.name}, count: {self.count}, type: {self.product_info}, provider: {self.provider}'
+        return f'name: {self.name}, type: {self.product_info}'
 
 
 class Transaction(models.Model):
@@ -24,3 +24,6 @@ class Transaction(models.Model):
 
     date = models.DateField()
     price = models.IntegerField()
+
+    def __str__(self):
+        return f'person: {self.person}, product: {self.product}, count: {self.count}'
