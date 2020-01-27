@@ -1,0 +1,83 @@
+{% extends 'stockroom/layout.html' %}
+
+{% block body %}
+{% load static %}
+
+
+<!-- Page Content -->
+<div class="container">
+
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-4 mb-3">Stockroom <small>Management</small></h1>
+
+    <ol class="breadcrumb light-color">
+        <li class="breadcrumb-item">
+            <a href="/">Home</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="/products">products</a>
+        </li>
+    </ol>
+
+    <div class="row">
+
+        <!-- Blog Entries Column -->
+        <div class="col-md-8">
+
+            <!-- Blog Post -->
+            <div class="card mb-4">
+                <h2 class="card-title">Product Info</h2>
+
+                <div class="card-body">
+                    <form method="post">
+                        <fieldset {% if not request.user.is_authenticated %} disabled="disabled" {% endif %}>
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">Name</label>
+                                <input type="text" class="form-control" id="exampleFormControlInput1" name="name"
+                                    value="{{ product.name }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">Count</label>
+                                <input type="number" class="form-control" id="exampleFormControlInput1" name="count"
+                                    value="{{ product.count }}" disabled="disabled">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">product info</label>
+                                <input type="text" class="form-control" id="exampleFormControlInput1"
+                                    name="product_info" value="{{ product.product_info }}">
+                            </div>
+                            <!-- <div class="form-group">
+                                <label for="exampleFormControlSelect1">Provider</label>
+                                <select class="form-control" id="exampleFormControlSelect1" name="provider">
+                                    {% for provider in providers %}
+                                    <option value="{{ provider.id }}" {% if provider.id == product.provider.id %}
+                                        selected="selected" {% endif %}>{{ provider.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div> -->
+
+                            <button class="btn btn-info btn-block my-4" type="submit">Submit</button>
+                        </fieldset>
+                    </form>
+                </div>
+                <div class="card-footer text-muted light-color">
+                    {% if product.id and request.user.is_authenticated %}
+                    <a href="/product/{{ product.id }}?delete" style="color: red;">Delete</a>
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Sidebar Widgets Column -->
+        <div class="col-md-4">
+            {% include 'stockroom/right_menu.html' %}
+        </div>
+
+    </div>
+    <!-- /.row -->
+
+</div>
+<!-- /.container -->
+{% endblock %}

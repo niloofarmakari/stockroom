@@ -1,0 +1,23 @@
+<div class="card mb-4">
+    {% if not request.user.is_authenticated %}
+    <h5 class="card-header light-color">Menu</h5>
+    <div class="card-body">
+        <div class="input-group">
+            <ul>
+                <li><a href="/products" style="color: black;">Products</a></li>
+                <li><a href="/providers" style="color: black;">Providers</a></li>
+            </ul>
+        </div>
+    </div>
+    {% else %}
+    <h5 class="card-header light-color">Admin Menu</h5>
+    <div class="card-body">
+        <div class="input-group">
+            <ul>
+                <li><a href="/products" style="color: black;">Product manager</a></li>
+                <li><a href="/providers" style="color: black;">Provider manager</a></li>
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+</div>

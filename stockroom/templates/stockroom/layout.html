@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="icon" type="image/png" href="{% static 'img/logo.png' %}" />
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/modern-business.css' %}" rel="stylesheet">
+
+    <title>Stockroom</title>
+
+</head>
+
+<body>
+    <div class="full-height">
+        {% include 'stockroom/navbar.html' %}
+        {% block body %}
+        {% endblock %}
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-5 dark-color">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; Stockroom-basu 2019</p>
+        </div>
+    </footer>
+
+    {% load static %}
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+</body>
+
+</html>
