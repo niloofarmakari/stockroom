@@ -30,15 +30,15 @@ def product_manager(request):
     })
 
 
-def provider_manager(request):
+def person_manager(request):
     search = []
     search.append(f'(name = "{request.GET["keyword"]}")' if "keyword" in request.GET and request.GET['keyword'] else '')
 
     search = [i for i in search if i]
     query = f'where {" and ".join(search)}' if search else ''
 
-    return render(request, 'stockroom/provider_manager.html', {
-        'providers': models.Person.objects.raw(f'SELECT * FROM stockroom_person {query}')
+    return render(request, 'stockroom/person_manager.html', {
+        'persons': models.Person.objects.raw(f'SELECT * FROM stockroom_person {query}')
     })
 
 
@@ -57,8 +57,14 @@ def product_view(request, id=None):
         return redirect(f'/product/{id}')
 
 
+    if 'deleteTransaction' in request.GET and 'transid' in request.GET:
+        transaction = models.Transaction.objects.get(id=request.GET['transid'])
+        transaction.delete()
+        return redirect(f'/product/{id}')
 
-    if 'delete' in request.GET and id:
+
+
+    if 'deleteProduct' in request.GET and id:
         product.delete()
         return redirect('/products')
 
@@ -66,26 +72,26 @@ def product_view(request, id=None):
     return render(request, 'stockroom/product.html', {
         'product': product,
         'count': sum([i.count for i in transactions]),
-        'providers': models.Person.objects.all(),
+        'persons': models.Person.objects.all(),
         'transactions': transactions,
     })
 
 
-def provider_view(request, id=None):
-    provider = models.Person.objects.get(id=id) if id else models.Person()
+def person_view(request, id=None):
+    person = models.Person.objects.get(id=id) if id else models.Person()
 
     if request.POST:
-        form = forms.PersonForm(request.POST, instance=provider)
-        provider = form.save()
-        return redirect('/providers')
+        form = forms.PersonForm(request.POST, instance=person)
+        person = form.save()
+        return redirect('/persons')
 
     elif 'delete' in request.GET and id:
-        provider.delete()
-        return redirect('/providers')
+        person.delete()
+        return redirect('/persons')
 
-    return render(request, 'stockroom/provider.html', {
-        'provider': provider,
+    return render(request, 'stockroom/person.html', {
+        'person': person,
 
         # TODO: get a list of products from this person
-        # 'products': models.Product.objects.raw(f'SELECT * FROM stockroom_product where provider_id = {id}') if id else None
+        # 'products': models.Product.objects.raw(f'SELECT * FROM stockroom_product where person_id = {id}') if id else None
     })

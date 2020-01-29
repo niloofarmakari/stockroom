@@ -34,7 +34,7 @@ class Migration(migrations.Migration):
         ),
         migrations.RemoveField(
             model_name='product',
-            name='provider',
+            name='person',
         ),
         migrations.RenameModel(
             old_name='Provider',

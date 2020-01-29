@@ -14,7 +14,7 @@
         <li class="breadcrumb-item">
             <a href="/">Home</a>
         </li>
-        <li class="breadcrumb-item active">providers</li>
+        <li class="breadcrumb-item active">persons</li>
     </ol>
 
     <div class="row">
@@ -24,7 +24,7 @@
 
             <!-- Blog Post -->
             <div class="card mb-4">
-                <h2 class="card-title">Providers</h2>
+                <h2 class="card-title">Persons</h2>
 
                 <div class="card-body">
                     <table class="table table-striped">
@@ -37,13 +37,13 @@
                                 <th scope="col">address</th>
                             </tr>
                         </thead>
-                        {% for provider in providers %}
-                        <tr onclick="window.location='/provider/{{provider.id}}';">
+                        {% for person in persons %}
+                        <tr onclick="window.location='/person/{{person.id}}';">
                             <th scope="row">{{ forloop.counter }}</th>
-                            <td>{{ provider.name }}</td>
-                            <td>{{ provider.phone }}</td>
+                            <td>{{ person.name }}</td>
+                            <td>{{ person.phone }}</td>
                             <td>
-                                {{provider.address}}
+                                {{person.address}}
                             </td>
                         </tr>
                         {% endfor %}
@@ -51,7 +51,7 @@
                 </div>
                 <div class="card-footer text-muted light-color">
                     {% if request.user.is_authenticated %}
-                    <a href="/provider" style="color: green;">New</a>
+                    <a href="/person" style="color: green;">New</a>
                     {% endif %}
                 </div>
             </div>

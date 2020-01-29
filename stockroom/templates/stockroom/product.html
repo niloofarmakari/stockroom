@@ -49,11 +49,11 @@
                                     value="{{ count }}" disabled="disabled">
                             </div>
                             <!-- <div class="form-group">
-                                <label for="exampleFormControlSelect1">Provider</label>
-                                <select class="form-control" id="exampleFormControlSelect1" name="provider">
-                                    {% for provider in providers %}
-                                    <option value="{{ provider.id }}" {% if provider.id == product.provider.id %}
-                                        selected="selected" {% endif %}>{{ provider.name }}</option>
+                                <label for="exampleFormControlSelect1">Person</label>
+                                <select class="form-control" id="exampleFormControlSelect1" name="person">
+                                    {% for person in persons %}
+                                    <option value="{{ person.id }}" {% if person.id == product.person.id %}
+                                        selected="selected" {% endif %}>{{ person.name }}</option>
                                     {% endfor %}
                                 </select>
                             </div> -->
@@ -64,7 +64,7 @@
                 </div>
                 <div class="card-footer text-muted light-color">
                     {% if product.id and request.user.is_authenticated %}
-                    <a href="/product/{{ product.id }}?delete" style="color: red;">Delete</a>
+                    <a href="/product/{{ product.id }}?deleteProduct" style="color: red;">Delete</a>
                     {% endif %}
                 </div>
             </div>
@@ -83,19 +83,21 @@
 
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">provider name</th>
+                                <th scope="col">person name</th>
                                 <th scope="col">count</th>
                                 <th scope="col">price</th>
                                 <th scope="col">date</th>
+                                <th scope="col">delete</th>
                             </tr>
                         </thead>
-                        {% for provider in transactions %}
-                        <tr onclick="window.location='/provider/{{provider.id}}';">
+                        {% for transaction in transactions %}
+                        <!-- <tr onclick="window.location='/person/{{person.id}}';"> -->
                             <th scope="row">{{ forloop.counter }}</th>
-                            <td>{{ provider.person.name }}</td>
-                            <td>{{ provider.count }}</td>
-                            <td>{{ provider.price }}</td>
-                            <td>{{ provider.date }}</td>
+                            <td>{{ transaction.person.name }}</td>
+                            <td>{{ transaction.count }}</td>
+                            <td>{{ transaction.price }}</td>
+                            <td>{{ transaction.date }}</td>
+                            <td><a href="/product/{{ product.id }}?deleteTransaction&transid={{ transaction.id }}" style="color: red;">x</a></td>
                         </tr>
                         {% endfor %}
                     </table>
@@ -110,15 +112,15 @@
                             <div class="form-group">
                                 <label for="exampleFormControlSelect1">Person</label>
                                 <select class="form-control" id="exampleFormControlSelect1" name="person">
-                                    {% for provider in providers %}
-                                    <option value="{{ provider.id }}" {% if provider.id == product.provider.id %}
-                                        selected="selected" {% endif %}>{{ provider.name }}</option>
+                                    {% for person in persons %}
+                                    <option value="{{ person.id }}" {% if person.id == product.person.id %}
+                                        selected="selected" {% endif %}>{{ person.name }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="exampleFormControlInput1">Date</label>
-                                <input type="date" class="form-control" id="exampleFormControlInput1" name="date">
+                                <label for="DateInputForm">Date</label>
+                                <input type="date" class="form-control" id="DateInputForm" name="date">
                             </div>
                             <div class="form-group">
                                 <label for="exampleFormControlInput1">Count</label>
@@ -155,4 +157,8 @@
 
 </div>
 <!-- /.container -->
+
+<script>
+    document.getElementById('DateInputForm').valueAsDate = new Date();
+</script>
 {% endblock %}
