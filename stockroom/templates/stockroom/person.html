@@ -1,104 +1,98 @@
-{% extends 'stockroom/layout.html' %}
+{% extends 'includes/layout.html' %}
 
 {% block body %}
 {% load static %}
 
+<h1 class="mt-4 mb-3">Stockroom <small>Management</small></h1>
 
-<!-- Page Content -->
-<div class="container">
+<ol class="breadcrumb light-color">
+  <li class="breadcrumb-item">
+    <a href="/">Home</a>
+  </li>
+  <li class="breadcrumb-item">
+    <a href="/persons">persons</a>
+  </li>
+</ol>
 
-    <!-- Page Heading/Breadcrumbs -->
-    <h1 class="mt-4 mb-3">Stockroom <small>Management</small></h1>
+<div class="row">
 
-    <ol class="breadcrumb light-color">
-        <li class="breadcrumb-item">
-            <a href="/">Home</a>
-        </li>
-        <li class="breadcrumb-item">
-            <a href="/persons">persons</a>
-        </li>
-    </ol>
+  <!-- Left Column -->
+  <div class="col-md-8">
 
-    <div class="row">
+    <!-- Blog Post -->
+    <div class="card mb-4">
+      <h2 class="card-title">Person Info</h2>
 
-        <!-- Blog Entries Column -->
-        <div class="col-md-8">
+      <div class="card-body">
 
-            <!-- Blog Post -->
-            <div class="card mb-4">
-                <h2 class="card-title">Person Info</h2>
-
-                <div class="card-body">
-
-                    <form method="post">
-                        <fieldset {% if not request.user.is_authenticated %} disabled="disabled" {% endif %}>
-                            {% csrf_token %}
-                            <div class="form-group">
-                                <label for="exampleFormControlInput1">Name</label>
-                                <input type="text" class="form-control" id="exampleFormControlInput1" name="name"
-                                    value="{{ person.name }}">
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleFormControlInput1">Phone</label>
-                                <input type="text" class="form-control" id="exampleFormControlInput1" name="phone"
-                                    value="{{ person.phone }}">
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleFormControlTextarea1">Address</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
-                                    name="address">{{ person.address }}</textarea>
-                            </div>
-
-                            <button class="btn btn-info btn-block my-4" type="submit">Submit</button>
-                        </fieldset>
-                    </form>
-
-                </div>
-                <div class="card-footer text-muted light-color">
-                    {% if person.id and request.user.is_authenticated %}
-                    <a href="/person/{{ person.id }}?delete" style="color: red;">Delete</a>
-                    {% endif %}
-                </div>
+        <form method="post">
+          <fieldset {% if not request.user.is_authenticated %} disabled="disabled" {% endif %}>
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="exampleFormControlInput1">Name</label>
+              <input type="text" class="form-control" id="exampleFormControlInput1" name="name"
+                value="{{ person.name }}">
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlInput1">Phone</label>
+              <input type="text" class="form-control" id="exampleFormControlInput1" name="phone"
+                value="{{ person.phone }}">
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlTextarea1">Address</label>
+              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                name="address">{{ person.address }}</textarea>
             </div>
 
-            {% if products %}
-            <!-- Blog Post -->
-            <div class="card mb-4">
-                <h2 class="card-title">Products</h2>
-                <div class="card-body">
-                    <table class="table table-striped">
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">name</th>
-                            <th scope="col">count</th>
-                            <th scope="col">info</th>
-                        </tr>
-                        {% for product in products %}
-                        <tr onclick="window.location='/product/{{ product.id }}';">
-                            <th scope="row">{{ forloop.counter }}</th>
-                            <td>{{ product.name }}</td>
-                            <td>{{ product.count }}</td>
-                            <td>{{ product.product_info }}</td>
-                        </tr>
-                        {% endfor %}
-                    </table>
+            <button class="btn btn-info btn-block my-4" type="submit">Submit</button>
+          </fieldset>
+        </form>
 
-                </div>
-                <div class="card-footer text-muted light-color">
-                </div>
-            </div>
-            {% endif %}
-
-        </div>
-
-        <!-- Sidebar Widgets Column -->
-        <div class="col-md-4">
-            {% include 'stockroom/right_menu.html' %}
-        </div>
-
+      </div>
+      <div class="card-footer text-muted light-color">
+        {% if person.id and request.user.is_authenticated %}
+        <a href="/person/{{ person.id }}?delete" style="color: red;">Delete</a>
+        {% endif %}
+      </div>
     </div>
-    <!-- /.row -->
+
+    {% if products %}
+    <!-- Blog Post -->
+    <div class="card mb-4">
+      <h2 class="card-title">Products</h2>
+      <div class="card-body">
+        <table class="table table-striped">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">name</th>
+            <th scope="col">count</th>
+            <th scope="col">info</th>
+          </tr>
+          {% for product in products %}
+          <tr onclick="window.location='/product/{{ product.id }}';">
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ product.name }}</td>
+            <td>{{ product.count }}</td>
+            <td>{{ product.product_info }}</td>
+          </tr>
+          {% endfor %}
+        </table>
+
+      </div>
+      <div class="card-footer text-muted light-color">
+      </div>
+    </div>
+    {% endif %}
+
+  </div>
+
+  <!-- Right Widgets Column -->
+  <div class="col-md-4">
+    <!-- right menu -->
+    {% include 'includes/right_menu.html' %}
+  </div>
 
 </div>
-<!-- /.container -->
+<!-- /.row -->
+
 {% endblock %}

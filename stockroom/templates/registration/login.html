@@ -1,68 +1,60 @@
-{% extends 'stockroom/layout.html' %}
+{% extends 'includes/layout.html' %}
 
 {% block body %}
 {% load static %}
 
+<h1 class="mt-4 mb-3">Stockroom <small>Management</small></h1>
 
-<!-- Page Content -->
-<div class="container">
+<ol class="breadcrumb light-color">
+  <li class="breadcrumb-item active">
+    <a href="/">Home</a>
+  </li>
+</ol>
 
-    <!-- Page Heading/Breadcrumbs -->
-    <h1 class="mt-4 mb-3">Stockroom <small>Management</small></h1>
+<div class="row">
 
-    <ol class="breadcrumb light-color">
-        <li class="breadcrumb-item active">
-            <a href="/">Home</a>
-        </li>
-    </ol>
+  <!-- Left Column -->
+  <div class="col-md-8">
 
-    <div class="row">
-
-        <!-- Blog Entries Column -->
-        <div class="col-md-8">
-
-            <!-- Blog Post -->
-            <div class="card mb-4">
-                <img class="card-img-top" src="{% static 'img/stockroom.jpg' %}" alt="Card image cap">
-                <div class="card-body">
-                    <p class="card-text">
-                        Stockroom management requires a great deal of organization in order to operate
-                        effectively and efficiently. Proper inventory control prevents stock-outs, facilitates
-                        reordering, and keeps account of all products as they transit into the stockroom, occupy shelves
-                        in your warehouse, and eventually disburse to retailers and clients. We are provide
-                        the means to competent stockroom performance through Label Flow barcode and label creation
-                        software and Asset Track™ inventory management software.
-                    </p>
-                </div>
-                <div class="card-footer text-muted light-color"></div>
-            </div>
-        </div>
-
-        <!-- Sidebar Widgets Column -->
-        {% if not request.user.is_authenticated %}
-        <div class="col-md-4">
-
-            <div class="card mb-4">
-                <h5 class="card-header light-color">Login</h5>
-                <form class="text-center border border-light p-5" method="POST">{% csrf_token %}
-                    <input type="text" name="username" required="" id="id_username" class="form-control mb-4"
-                        placeholder="Username">
-                    <input type="password" name="password" required="" id="id_password" class="form-control mb-4"
-                        placeholder="Password">
-
-                    <button class="btn btn-info btn-block my-4" type="submit">Login</button>
-
-                </form>
-            </div>
-            {% include 'stockroom/right_menu.html' %}
-            {% else %}
-            <div class="col-md-4">
-                {% include 'stockroom/right_menu.html' %}
-            </div>
-            {% endif %}
-        </div>
-
+    <div class="card mb-4">
+      <img class="card-img-top" src="{% static 'img/stockroom.jpg' %}" alt="Card image cap">
+      <div class="card-body">
+        <p class="card-text">
+          Stockroom management requires a great deal of organization in order to operate
+          effectively and efficiently. Proper inventory control prevents stock-outs, facilitates
+          reordering, and keeps account of all products as they transit into the stockroom, occupy shelves
+          in your warehouse, and eventually disburse to retailers and clients. We are provide
+          the means to competent stockroom performance through Label Flow barcode and label creation
+          software and Asset Track™ inventory management software.
+        </p>
+      </div>
+      <div class="card-footer text-muted light-color"></div>
     </div>
-    <!-- /.row -->
+
+  </div>
+
+  <!-- Right Widgets Column -->
+  <div class="col-md-4">
+
+    {% if not request.user.is_authenticated %}
+
+    <div class="card mb-4">
+      <h5 class="card-header light-color">Login</h5>
+
+      <form class="text-center border border-light p-5" method="POST">
+        {% csrf_token %}
+        <input type="text" name="username" required class="form-control mb-4" placeholder="Username">
+        <input type="password" name="password" required class="form-control mb-4" placeholder="Password">
+
+        <button class="btn btn-info btn-block my-4" type="submit">Login</button>
+      </form>
+    </div>
+
+    {% else %}
+    <!-- right menu -->
+    {% include 'includes/right_menu.html' %}
+    {% endif %}
+  </div>
+
 </div>
 {% endblock %}

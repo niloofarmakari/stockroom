@@ -1,91 +1,72 @@
-{% extends 'stockroom/layout.html' %}
+{% extends 'includes/layout.html' %}
 
 {% block body %}
 {% load static %}
+<h1 class="mt-4 mb-3">Stockroom <small>Management</small></h1>
 
-<!-- Page Content -->
-<div class="container">
+<ol class="breadcrumb light-color">
+  <li class="breadcrumb-item">
+    <a href="/">Home</a>
+  </li>
+  <li class="breadcrumb-item active">products</li>
+</ol>
 
-    <!-- Page Heading/Breadcrumbs -->
-    <h1 class="mt-4 mb-3">Stockroom <small>Management</small></h1>
+<div class="row">
 
-    <ol class="breadcrumb light-color">
-        <li class="breadcrumb-item">
-            <a href="/">Home</a>
-        </li>
-        <li class="breadcrumb-item active">products</li>
-    </ol>
+  <!-- Left Column -->
+  <div class="col-md-8">
 
-    <div class="row">
+    <!-- Blog Post -->
+    <div class="card mb-4">
+      <h2 class="card-title">Products</h2>
 
-        <!-- Blog Entries Column -->
-        <div class="col-md-8">
-
-            <!-- Blog Post -->
-            <div class="card mb-4">
-                <h2 class="card-title">Products</h2>
-
-                <div class="card-body">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">name</th>
-                                <th scope="col">info</th>
-                                <!-- <th scope="col">count</th> -->
-                            </tr>
-                        </thead>
-                        {% for product in products %}
-                        <tr onclick="window.location='/product/{{product.id}}';">
-                            <th scope="row">{{ forloop.counter }}</th>
-                            <td>{{ product.name }}</td>
-                            <td>{{ product.product_info }}</td>
-                            <!-- <td>{{ product.count }}</td> -->
-                        </tr>
-                        {% endfor %}
-                    </table>
-                </div>
-                <div class="card-footer text-muted light-color">
-                    {% if request.user.is_authenticated %}
-                    <a href="/product" style="color: green;">New</a>
-                    {% endif %}
-                </div>
-            </div>
-
-        </div>
-
-        <!-- Sidebar Widgets Column -->
-        <div class="col-md-4">
-
-            <!-- Search Widget -->
-            <div class="card mb-4">
-                <h5 class="card-header light-color">Search</h5>
-                <form class="text-center border border-light p-5" method="GET">
-                    <input type="text" name="keyword" class="form-control mb-4" placeholder="name"
-                        value="{{ request.GET.keyword }}">
-                    <input type="text" name="product_info" class="form-control mb-4" placeholder="type"
-                        value="{{ request.GET.product_info }}">
-
-                    <div class="d-flex justify-content-around">
-                        <div>
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="defaultLoginFormRemember"
-                                    name="available" value="1" {{ request.GET.available|yesno:"checked,," }}>
-                                <label class="custom-control-label" for="defaultLoginFormRemember">Available</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <button class="btn btn-info btn-block my-4" type="submit">Search</button>
-                </form>
-            </div>
-
-            <!-- right menu -->
-            {% include 'stockroom/right_menu.html' %}
-        </div>
+      <div class="card-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">name</th>
+              <th scope="col">info</th>
+              <!-- <th scope="col">count</th> -->
+            </tr>
+          </thead>
+          {% for product in products %}
+          <tr onclick="window.location='/product/{{product.id}}';">
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ product.name }}</td>
+            <td>{{ product.product_info }}</td>
+            <!-- <td>{{ product.count }}</td> -->
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+      <div class="card-footer text-muted light-color">
+        {% if request.user.is_authenticated %}
+        <a href="/product" style="color: green;">New</a>
+        {% endif %}
+      </div>
     </div>
-    <!-- /.row -->
 
+  </div>
+
+  <!-- Right Widgets Column -->
+  <div class="col-md-4">
+
+    <!-- Search Widget -->
+    <div class="card mb-4">
+      <h5 class="card-header light-color">Search</h5>
+      <form class="text-center border border-light p-5" method="GET">
+        <input type="text" name="keyword" class="form-control mb-4" placeholder="name"
+          value="{{ request.GET.keyword }}">
+        <input type="text" name="product_info" class="form-control mb-4" placeholder="type"
+          value="{{ request.GET.product_info }}">
+
+        <button class="btn btn-info btn-block my-4" type="submit">Search</button>
+      </form>
+    </div>
+
+    <!-- right menu -->
+    {% include 'includes/right_menu.html' %}
+  </div>
 </div>
-<!-- /.container -->
 {% endblock %}

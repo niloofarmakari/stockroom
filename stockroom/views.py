@@ -1,7 +1,5 @@
-from django.shortcuts import render
 from django.contrib.auth import logout
-from django.db.models import Sum
-from django.shortcuts import redirect, HttpResponse
+from django.shortcuts import render, redirect
 
 from . import models, forms
 
@@ -14,14 +12,10 @@ def logout_view(request):
 def product_manager(request):
     search = []
     search.append(f'(name = "{request.GET["keyword"]}")' if "keyword" in request.GET and request.GET['keyword'] else '')
-    # search.append(f'(count > 0)' if 'available' in request.GET else '')
     search.append(f'(product_info = "{request.GET["product_info"]}")' if 'product_info' in request.GET and request.GET['product_info'] else '')
 
     search = [i for i in search if i]
     query = f'where {" and ".join(search)}' if search else ''
-
-    # transactions = {item['product_id']: item['count'] for item in }
-    # products = models.Transaction.objects.select_related().values('name', 'product_info', 'product_id').annotate(count=Sum('count'))
     products = models.Product.objects.raw(f'SELECT * FROM stockroom_product {query}')
 
 
@@ -51,18 +45,14 @@ def product_view(request, id=None):
         return redirect('/products')
 
     if request.POST and request.POST['request'] == 'transaction':
-        print('gaatcha')
         form = forms.TransactionForm(request.POST)
         form.save()
         return redirect(f'/product/{id}')
-
 
     if 'deleteTransaction' in request.GET and 'transid' in request.GET:
         transaction = models.Transaction.objects.get(id=request.GET['transid'])
         transaction.delete()
         return redirect(f'/product/{id}')
-
-
 
     if 'deleteProduct' in request.GET and id:
         product.delete()
@@ -85,13 +75,10 @@ def person_view(request, id=None):
         person = form.save()
         return redirect('/persons')
 
-    elif 'delete' in request.GET and id:
+    if 'delete' in request.GET and id:
         person.delete()
         return redirect('/persons')
 
     return render(request, 'stockroom/person.html', {
         'person': person,
-
-        # TODO: get a list of products from this person
-        # 'products': models.Product.objects.raw(f'SELECT * FROM stockroom_product where person_id = {id}') if id else None
     })

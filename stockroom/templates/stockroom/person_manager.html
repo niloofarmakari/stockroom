@@ -1,86 +1,77 @@
-{% extends 'stockroom/layout.html' %}
+{% extends 'includes/layout.html' %}
 
 {% block body %}
 {% load static %}
 
+<h1 class="mt-4 mb-3">Stockroom <small>Management</small></h1>
 
-<!-- Page Content -->
-<div class="container">
+<ol class="breadcrumb light-color">
+  <li class="breadcrumb-item">
+    <a href="/">Home</a>
+  </li>
+  <li class="breadcrumb-item active">persons</li>
+</ol>
 
-    <!-- Page Heading/Breadcrumbs -->
-    <h1 class="mt-4 mb-3">Stockroom <small>Management</small></h1>
+<div class="row">
 
-    <ol class="breadcrumb light-color">
-        <li class="breadcrumb-item">
-            <a href="/">Home</a>
-        </li>
-        <li class="breadcrumb-item active">persons</li>
-    </ol>
+  <!-- Left Column -->
+  <div class="col-md-8">
 
-    <div class="row">
+    <!-- Blog Post -->
+    <div class="card mb-4">
+      <h2 class="card-title">Persons</h2>
 
-        <!-- Blog Entries Column -->
-        <div class="col-md-8">
+      <div class="card-body">
+        <table class="table table-striped">
+          <thead>
 
-            <!-- Blog Post -->
-            <div class="card mb-4">
-                <h2 class="card-title">Persons</h2>
-
-                <div class="card-body">
-                    <table class="table table-striped">
-                        <thead>
-
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">name</th>
-                                <th scope="col">phone</th>
-                                <th scope="col">address</th>
-                            </tr>
-                        </thead>
-                        {% for person in persons %}
-                        <tr onclick="window.location='/person/{{person.id}}';">
-                            <th scope="row">{{ forloop.counter }}</th>
-                            <td>{{ person.name }}</td>
-                            <td>{{ person.phone }}</td>
-                            <td>
-                                {{person.address}}
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </table>
-                </div>
-                <div class="card-footer text-muted light-color">
-                    {% if request.user.is_authenticated %}
-                    <a href="/person" style="color: green;">New</a>
-                    {% endif %}
-                </div>
-            </div>
-
-        </div>
-
-        <!-- Sidebar Widgets Column -->
-        <div class="col-md-4">
-
-
-            <!-- Search Widget -->
-            <div class="card mb-4">
-                <h5 class="card-header light-color">Search</h5>
-                <form class="text-center border border-light p-5" method="GET">
-                    <input type="text" name="keyword" class="form-control mb-4" placeholder="name"
-                        value="{{ request.GET.keyword }}">
-
-                    <button class="btn btn-info btn-block my-4" type="submit">Search</button>
-
-                </form>
-            </div>
-
-            <!-- right menu -->
-            {% include 'stockroom/right_menu.html' %}
-        </div>
-
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">name</th>
+              <th scope="col">phone</th>
+              <th scope="col">address</th>
+            </tr>
+          </thead>
+          {% for person in persons %}
+          <tr onclick="window.location='/person/{{person.id}}';">
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ person.name }}</td>
+            <td>{{ person.phone }}</td>
+            <td>
+              {{person.address}}
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+      <div class="card-footer text-muted light-color">
+        {% if request.user.is_authenticated %}
+        <a href="/person" style="color: green;">New</a>
+        {% endif %}
+      </div>
     </div>
-    <!-- /.row -->
+
+  </div>
+
+  <!-- Right Widgets Column -->
+  <div class="col-md-4">
+
+    <!-- Search Widget -->
+    <div class="card mb-4">
+      <h5 class="card-header light-color">Search</h5>
+      <form class="text-center border border-light p-5" method="GET">
+        <input type="text" name="keyword" class="form-control mb-4" placeholder="name"
+          value="{{ request.GET.keyword }}">
+
+        <button class="btn btn-info btn-block my-4" type="submit">Search</button>
+
+      </form>
+    </div>
+
+    <!-- right menu -->
+    {% include 'includes/right_menu.html' %}
+  </div>
 
 </div>
-<!-- /.container -->
+<!-- /.row -->
 {% endblock %}
