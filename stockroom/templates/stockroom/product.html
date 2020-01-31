@@ -67,7 +67,9 @@
               <th scope="col">count</th>
               <th scope="col">price</th>
               <th scope="col">date</th>
+              {% if product.id and request.user.is_authenticated %}
               <th scope="col">delete</th>
+              {% endif %}
             </tr>
           </thead>
           {% for transaction in transactions %}
@@ -77,8 +79,12 @@
           <td>{{ transaction.count }}</td>
           <td>{{ transaction.price }}</td>
           <td>{{ transaction.date }}</td>
+          {% if product.id and request.user.is_authenticated %}
           <td><a href="/product/{{ product.id }}?deleteTransaction&transid={{ transaction.id }}"
-              style="color: red;">x</a></td>
+              style="color: red;">x</a>
+          </td>
+          {% endif %}
+
           </tr>
           {% endfor %}
         </table>
