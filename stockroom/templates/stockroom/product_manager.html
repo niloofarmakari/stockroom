@@ -52,19 +52,6 @@
   <!-- Right Widgets Column -->
   <div class="col-md-4">
 
-    <!-- Search Widget -->
-    <div class="card mb-4">
-      <h5 class="card-header light-color">Search</h5>
-      <form class="text-center border border-light p-5" method="GET">
-        <input type="text" name="keyword" class="form-control mb-4" placeholder="name"
-          value="{{ request.GET.keyword }}">
-        <input type="text" name="product_info" class="form-control mb-4" placeholder="type"
-          value="{{ request.GET.product_info }}">
-
-        <button class="btn btn-info btn-block my-4" type="submit">Search</button>
-      </form>
-    </div>
-
     <!-- right menu -->
     {% include 'includes/right_menu.html' %}
   </div>
