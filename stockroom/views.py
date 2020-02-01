@@ -10,29 +10,14 @@ def logout_view(request):
 
 
 def product_manager(request):
-    search = []
-    search.append(f'(name = "{request.GET["keyword"]}")' if "keyword" in request.GET and request.GET['keyword'] else '')
-    search.append(f'(product_info = "{request.GET["product_info"]}")' if 'product_info' in request.GET and request.GET['product_info'] else '')
-
-    search = [i for i in search if i]
-    query = f'where {" and ".join(search)}' if search else ''
-    products = models.Product.objects.raw(f'SELECT * FROM stockroom_product {query}')
-
-
     return render(request, 'stockroom/product_manager.html', {
-        'products': products,
+        'products': models.Product.objects.raw('SELECT * FROM stockroom_product'),
     })
 
 
 def person_manager(request):
-    search = []
-    search.append(f'(name = "{request.GET["keyword"]}")' if "keyword" in request.GET and request.GET['keyword'] else '')
-
-    search = [i for i in search if i]
-    query = f'where {" and ".join(search)}' if search else ''
-
     return render(request, 'stockroom/person_manager.html', {
-        'persons': models.Person.objects.raw(f'SELECT * FROM stockroom_person {query}')
+        'persons': models.Person.objects.raw('SELECT * FROM stockroom_person')
     })
 
 
