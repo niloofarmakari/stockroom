@@ -55,52 +55,6 @@ DATABASES = {
     #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     # }
 
-    # 'default': {
-    #     'ENGINE': 'sql_server.pyodbc',
-    #     'NAME': '<DB NAME>',
-    #     'HOST': '<HOST IP>',
-    #     'USER': '<SQL SERVER USERNAME',
-    #     'PASSWORD': '<SQL SERVER PASSWORD>',
-
-    #     'OPTIONS': {
-    #         'driver': 'ODBC Driver 17 for SQL Server',
-    #     }
-    # }
-
-
-    # 'default': { # sql server
-    #     'ENGINE': 'sql_server.pyodbc',
-    #     'NAME': 'stockroom',
-    #     'HOST': '.',
-    #     'OPTIONS': {
-    #         'driver': 'ODBC Driver 14 for SQL Server',
-    #     }
-    # },
-
-
-
-    # 'default': {
-    #     'ENGINE': 'sql_server.pyodbc',
-    #     'NAME': 'mydb',
-    #     'USER': 'user@myserver',
-    #     'PASSWORD': 'password',
-    #     'HOST': 'myserver.database.windows.net',
-    #     'PORT': '',
-
-    #     'OPTIONS': {
-    #         'driver': 'ODBC Driver 13 for SQL Server',
-    #     },
-    # },
-
-    # 'default': {
-    #     'NAME': 'stockroom',
-    #     'ENGINE': 'sqlserver_ado',
-    #     'HOST': '.',
-    #     'USER': '',
-    #     'PASSWORD': '',
-    # }
-
-
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'stockroom',
@@ -109,8 +63,6 @@ DATABASES = {
         'HOST': 's9.liara.ir',
         'PORT': '33872',
     }
-
-
 }
 
 
