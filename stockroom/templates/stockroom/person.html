@@ -26,7 +26,7 @@
       <div class="card-body">
 
         <form method="post">
-          <fieldset {% if not request.user.is_authenticated %} disabled="disabled" {% endif %}>
+          <fieldset {% if not request.user.is_authenticated %} disabled {% endif %}>
             {% csrf_token %}
             <div class="form-group">
               <label for="exampleFormControlInput1">Name</label>
