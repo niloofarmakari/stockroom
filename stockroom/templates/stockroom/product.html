@@ -73,18 +73,17 @@
             </tr>
           </thead>
           {% for transaction in transactions %}
-          <!-- <tr onclick="window.location='/person/{{person.id}}';"> -->
-          <th scope="row">{{ forloop.counter }}</th>
-          <td>{{ transaction.person.name }}</td>
-          <td>{{ transaction.count }}</td>
-          <td>{{ transaction.price }}</td>
-          <td>{{ transaction.date }}</td>
-          {% if product.id and request.user.is_authenticated %}
-          <td><a href="/product/{{ product.id }}?deleteTransaction&transid={{ transaction.id }}"
-              style="color: red;">x</a>
-          </td>
-          {% endif %}
-
+          <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ transaction.person.name }}</td>
+            <td>{{ transaction.count }}</td>
+            <td>{{ transaction.price }}</td>
+            <td>{{ transaction.date }}</td>
+            {% if product.id and request.user.is_authenticated %}
+            <td><a href="/product/{{ product.id }}?deleteTransaction&transid={{ transaction.id }}"
+                style="color: red;">x</a>
+            </td>
+            {% endif %}
           </tr>
           {% endfor %}
         </table>
